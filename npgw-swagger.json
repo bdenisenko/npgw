@@ -1,0 +1,153 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "NPGW",
+    "description": "NPGW...",
+    "version": "1.0.0"
+  },
+  "basePath": "/npgw",
+  "host": "apigatewaydev.telenor.dk",
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/import": {
+      "post": {
+        "summary": "Creates a port in request",
+        "description": "Creates a port in request",
+        "parameters": [
+          {
+            "name": "portInRequest",
+            "in": "body",
+            "required": true,
+            "description": "Data for import request",
+            "schema": {
+              "$ref": "#/definitions/PortInRequest"
+            }
+          },
+          {
+            "name": "appkey",
+            "type": "string",
+            "in": "header",
+            "required": true,
+            "default": "8000050101"
+          },
+          {
+            "name": "transactionId",
+            "type": "string",
+            "in": "header",
+            "required": true,
+            "default": "8000000001202102271680434082"
+          }
+        ],
+        "tags": [
+          "npgw"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/import/{telephoneNumber}": {
+      "get": {
+        "summary": "Gets ongoing import",
+        "description": "Gets ongoing import",
+        "parameters": [
+          {
+            "name": "telephoneNumber",
+            "in": "path",
+            "required": true,
+            "description": "Telephone number for ongoing import",
+            "type": "string"
+          },
+          {
+            "name": "appkey",
+            "type": "string",
+            "in": "header",
+            "required": true,
+            "default": "8000050101"
+          },
+          {
+            "name": "transactionId",
+            "type": "string",
+            "in": "header",
+            "required": true,
+            "default": "8000000001202102271680434082"
+          }
+        ],
+        "tags": [
+          "npgw"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PortInRequest": {
+      "allOf": [
+        {
+          "properties": {
+            "OrderId": {
+              "type": "string",
+              "default": "1234567905"
+            },
+            "ICC": {
+              "type": "string",
+              "default": "8945020200014376867"
+            },
+            "RecipientServiceOperator": {
+              "type": "string",
+              "default": "01015"
+            },
+            "TelephoneNumber": {
+              "type": "string",
+              "default": "59000920"
+            },
+            "Comment": {
+              "type": "string",
+              "default": "my comment"
+            },
+            "RequestedExecutionDate": {
+              "type": "string",
+              "default": "20220101"
+            }
+          }
+        }
+      ]
+    },
+    "Error": {
+      "allOf": [
+        {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "defaultRole": {
+              "type": "boolean",
+              "readOnly": true
+            },
+            "tenantId": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "permissions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
